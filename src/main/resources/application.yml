@@ -1,0 +1,117 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: game-rag-online
+  jackson:
+    default-property-inclusion: non_null
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+#ＲＡＧ缓存配置
+rag:
+  cache:
+    enabled: true
+    max-size: 5000
+    ttl: 30m
+
+  # 豆包大模型：只用于 Query 理解和最终答案生成。
+  doubao:
+    api-key: ${DOUBAO_API_KEY:}
+    base-url: ${DOUBAO_BASE_URL:https://ark.cn-beijing.volces.com/api/v3}
+    chat-model: ${DOUBAO_CHAT_MODEL:ep-your-doubao-chat-endpoint}
+    timeout: 60s
+    temperature: 0.2
+    max-tokens: 1200
+
+  # BGE-M3 Embedding：用于线上 query 向量化。必须与离线 Milvus 索引使用的 embedding 模型一致。
+  embedding:
+    api-key: ${BGE_API_KEY:}
+    require-api-key: ${BGE_REQUIRE_API_KEY:true}
+    # OpenAI-compatible baseUrl，通常填到 /v1；如果你用自建 vLLM/Xinference，可改为对应地址。
+    base-url: ${BGE_BASE_URL:https://api.siliconflow.cn/v1}
+    model: ${BGE_EMBEDDING_MODEL:BAAI/bge-m3}
+    endpoint-path: ${BGE_EMBEDDING_PATH:/embeddings}
+    timeout: 60s
+    # 若离线入库时做了 L2 normalize，建议这里也开启；Milvus COSINE 通常不强制要求。
+    normalize-query-vector: ${BGE_NORMALIZE_QUERY_VECTOR:false}
+    # 绝大多数服务不需要显式传 encoding_format/dimensions；需要时再通过环境变量打开。
+    encoding-format: ${BGE_ENCODING_FORMAT:}
+    dimensions: ${BGE_DIMENSIONS:0}
+
+  # BGE Reranker：用于 RRF 融合后的候选片段精排。
+  reranker:
+    enabled: ${BGE_RERANK_ENABLED:true}
+    api-key: ${BGE_RERANK_API_KEY:${BGE_API_KEY:}}
+    require-api-key: ${BGE_RERANK_REQUIRE_API_KEY:true}
+    base-url: ${BGE_RERANK_BASE_URL:${BGE_BASE_URL:https://api.siliconflow.cn/v1}}
+    model: ${BGE_RERANK_MODEL:BAAI/bge-reranker-v2-m3}
+    endpoint-path: ${BGE_RERANK_PATH:/rerank}
+    timeout: 60s
+    max-document-chars: 1200
+    return-documents: false
+    fallback-to-heuristic: true
+    # 最终分数 = rerank-weight * BGE精排分 + (1-rerank-weight) * RRF归一化分。
+    rerank-weight: 0.85
+
+  milvus:
+    endpoint: ${MILVUS_ENDPOINT:http://localhost:19530}
+    # Milvus REST token 可填 root:Milvus 或云服务 token；最终会作为 Bearer token 发送。
+    token: ${MILVUS_TOKEN:root:Milvus}
+    database: ${MILVUS_DATABASE:default}
+    collection: ${MILVUS_COLLECTION:game_knowledge}
+
+    # 按你的离线索引 schema 修改这些字段即可。
+    primary-key-field: ${MILVUS_ID_FIELD:id}
+    text-field: ${MILVUS_TEXT_FIELD:content}
+    title-field: ${MILVUS_TITLE_FIELD:title}
+    source-field: ${MILVUS_SOURCE_FIELD:source}
+    url-field: ${MILVUS_URL_FIELD:url}
+    game-field: ${MILVUS_GAME_FIELD:game_id}
+    dense-vector-field: ${MILVUS_DENSE_FIELD:vector}
+    sparse-vector-field: ${MILVUS_SPARSE_FIELD:text_sparse}
+    output-fields:
+      - id
+      - title
+      - content
+      - source
+      - url
+      - game_id
+      - doc_type
+      - version
+
+    dense-search-enabled: true
+    sparse-search-enabled: true
+    keyword-query-enabled: true
+    metric-type: COSINE
+    consistency-level: Bounded
+    dense-top-k: 30
+    sparse-top-k: 30
+    keyword-top-k: 30
+    # Milvus text match 表达式模板，要求离线建表时 text 字段启用了 analyzer。不能用时把 keyword-query-enabled 设为 false。
+    keyword-filter-template: "TEXT_MATCH({textField}, '{keyword}')"
+
+  query-understanding:
+    enabled: true
+    max-expanded-queries: 4
+    fallback-to-rules: true
+
+  retrieval:
+    rrf-k: 60
+    fused-top-k: 40
+    rerank-candidate-k: 20
+    final-top-k: 6
+    min-score: 0.0
+
+  prompt:
+    max-context-chars: 9000
+    max-doc-chars: 1200
+    system-message: |
+      你是一个严谨的游戏知识库问答助手。你只能依据给定的知识库片段回答。
+      若知识库没有足够证据，请明确说“知识库中没有足够信息”，不要编造。
+      回答要面向玩家，步骤清晰，涉及数值、任务、地点、道具、机制时尽量列出条件和限制。
+      在关键结论后使用 [1]、[2] 这样的编号引用对应片段。

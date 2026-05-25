@@ -1,0 +1,373 @@
+{
+  "groups": [
+    {
+      "name": "rag",
+      "type": "com.example.gamerag.config.RagProperties",
+      "sourceType": "com.example.gamerag.config.RagProperties"
+    },
+    {
+      "name": "rag.cache",
+      "type": "com.example.gamerag.config.RagProperties$Cache",
+      "sourceType": "com.example.gamerag.config.RagProperties",
+      "sourceMethod": "getCache()"
+    },
+    {
+      "name": "rag.doubao",
+      "type": "com.example.gamerag.config.RagProperties$Doubao",
+      "sourceType": "com.example.gamerag.config.RagProperties",
+      "sourceMethod": "getDoubao()"
+    },
+    {
+      "name": "rag.embedding",
+      "type": "com.example.gamerag.config.RagProperties$Embedding",
+      "sourceType": "com.example.gamerag.config.RagProperties",
+      "sourceMethod": "getEmbedding()"
+    },
+    {
+      "name": "rag.milvus",
+      "type": "com.example.gamerag.config.RagProperties$Milvus",
+      "sourceType": "com.example.gamerag.config.RagProperties",
+      "sourceMethod": "getMilvus()"
+    },
+    {
+      "name": "rag.prompt",
+      "type": "com.example.gamerag.config.RagProperties$Prompt",
+      "sourceType": "com.example.gamerag.config.RagProperties",
+      "sourceMethod": "getPrompt()"
+    },
+    {
+      "name": "rag.query-understanding",
+      "type": "com.example.gamerag.config.RagProperties$QueryUnderstanding",
+      "sourceType": "com.example.gamerag.config.RagProperties",
+      "sourceMethod": "getQueryUnderstanding()"
+    },
+    {
+      "name": "rag.reranker",
+      "type": "com.example.gamerag.config.RagProperties$Reranker",
+      "sourceType": "com.example.gamerag.config.RagProperties",
+      "sourceMethod": "getReranker()"
+    },
+    {
+      "name": "rag.retrieval",
+      "type": "com.example.gamerag.config.RagProperties$Retrieval",
+      "sourceType": "com.example.gamerag.config.RagProperties",
+      "sourceMethod": "getRetrieval()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "rag.cache.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.gamerag.config.RagProperties$Cache"
+    },
+    {
+      "name": "rag.cache.max-size",
+      "type": "java.lang.Long",
+      "sourceType": "com.example.gamerag.config.RagProperties$Cache"
+    },
+    {
+      "name": "rag.cache.ttl",
+      "type": "java.time.Duration",
+      "sourceType": "com.example.gamerag.config.RagProperties$Cache"
+    },
+    {
+      "name": "rag.doubao.api-key",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Doubao"
+    },
+    {
+      "name": "rag.doubao.base-url",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Doubao"
+    },
+    {
+      "name": "rag.doubao.chat-model",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Doubao"
+    },
+    {
+      "name": "rag.doubao.max-tokens",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$Doubao"
+    },
+    {
+      "name": "rag.doubao.temperature",
+      "type": "java.lang.Double",
+      "sourceType": "com.example.gamerag.config.RagProperties$Doubao"
+    },
+    {
+      "name": "rag.doubao.timeout",
+      "type": "java.time.Duration",
+      "sourceType": "com.example.gamerag.config.RagProperties$Doubao"
+    },
+    {
+      "name": "rag.embedding.api-key",
+      "type": "java.lang.String",
+      "description": "推荐 BAAI\/bge-m3：中英文与多语言表现稳定，适合游戏百科、攻略、补丁说明混合语料。 baseUrl 一般填写到 \/v1，例如 https:\/\/api.siliconflow.cn\/v1 或你的自建 vLLM\/Xinference OpenAI-compatible 地址。",
+      "sourceType": "com.example.gamerag.config.RagProperties$Embedding"
+    },
+    {
+      "name": "rag.embedding.base-url",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Embedding"
+    },
+    {
+      "name": "rag.embedding.dimensions",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$Embedding"
+    },
+    {
+      "name": "rag.embedding.encoding-format",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Embedding"
+    },
+    {
+      "name": "rag.embedding.endpoint-path",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Embedding"
+    },
+    {
+      "name": "rag.embedding.model",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Embedding"
+    },
+    {
+      "name": "rag.embedding.normalize-query-vector",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.gamerag.config.RagProperties$Embedding"
+    },
+    {
+      "name": "rag.embedding.require-api-key",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.gamerag.config.RagProperties$Embedding"
+    },
+    {
+      "name": "rag.embedding.timeout",
+      "type": "java.time.Duration",
+      "sourceType": "com.example.gamerag.config.RagProperties$Embedding"
+    },
+    {
+      "name": "rag.milvus.collection",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.consistency-level",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.database",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.dense-search-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.dense-top-k",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.dense-vector-field",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.endpoint",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.game-field",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.keyword-filter-template",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.keyword-query-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.keyword-top-k",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.metric-type",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.output-fields",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.primary-key-field",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.source-field",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.sparse-search-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.sparse-top-k",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.sparse-vector-field",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.text-field",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.title-field",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.token",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.milvus.url-field",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Milvus"
+    },
+    {
+      "name": "rag.prompt.max-context-chars",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$Prompt"
+    },
+    {
+      "name": "rag.prompt.max-doc-chars",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$Prompt"
+    },
+    {
+      "name": "rag.prompt.system-message",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Prompt"
+    },
+    {
+      "name": "rag.query-understanding.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.gamerag.config.RagProperties$QueryUnderstanding"
+    },
+    {
+      "name": "rag.query-understanding.fallback-to-rules",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.gamerag.config.RagProperties$QueryUnderstanding"
+    },
+    {
+      "name": "rag.query-understanding.max-expanded-queries",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$QueryUnderstanding"
+    },
+    {
+      "name": "rag.reranker.api-key",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Reranker"
+    },
+    {
+      "name": "rag.reranker.base-url",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Reranker"
+    },
+    {
+      "name": "rag.reranker.enabled",
+      "type": "java.lang.Boolean",
+      "description": "推荐 BAAI\/bge-reranker-v2-m3：BGE-M3 系列跨编码器精排模型，适合中英文\/多语言场景。",
+      "sourceType": "com.example.gamerag.config.RagProperties$Reranker"
+    },
+    {
+      "name": "rag.reranker.endpoint-path",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Reranker"
+    },
+    {
+      "name": "rag.reranker.fallback-to-heuristic",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.gamerag.config.RagProperties$Reranker"
+    },
+    {
+      "name": "rag.reranker.max-document-chars",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$Reranker"
+    },
+    {
+      "name": "rag.reranker.model",
+      "type": "java.lang.String",
+      "sourceType": "com.example.gamerag.config.RagProperties$Reranker"
+    },
+    {
+      "name": "rag.reranker.require-api-key",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.gamerag.config.RagProperties$Reranker"
+    },
+    {
+      "name": "rag.reranker.rerank-weight",
+      "type": "java.lang.Double",
+      "description": "Reranker 分数与 RRF\/召回分数融合权重，0.85 表示以精排为主，保留少量召回信号。",
+      "sourceType": "com.example.gamerag.config.RagProperties$Reranker"
+    },
+    {
+      "name": "rag.reranker.return-documents",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.gamerag.config.RagProperties$Reranker"
+    },
+    {
+      "name": "rag.reranker.timeout",
+      "type": "java.time.Duration",
+      "sourceType": "com.example.gamerag.config.RagProperties$Reranker"
+    },
+    {
+      "name": "rag.retrieval.final-top-k",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$Retrieval"
+    },
+    {
+      "name": "rag.retrieval.fused-top-k",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$Retrieval"
+    },
+    {
+      "name": "rag.retrieval.min-score",
+      "type": "java.lang.Double",
+      "sourceType": "com.example.gamerag.config.RagProperties$Retrieval"
+    },
+    {
+      "name": "rag.retrieval.rerank-candidate-k",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$Retrieval"
+    },
+    {
+      "name": "rag.retrieval.rrf-k",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.gamerag.config.RagProperties$Retrieval"
+    }
+  ],
+  "hints": []
+}

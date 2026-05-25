@@ -1,0 +1,28 @@
+### RAG query: game knowledge Q&A
+POST http://localhost:8080/api/rag/query
+Content-Type: application/json
+
+{
+  "query": "这个boss第二阶段怎么打？",
+  "gameId": "demo_game",
+  "topK": 6,
+  "debug": true
+}
+
+### RAG query with filters
+POST http://localhost:8080/api/rag/query
+Content-Type: application/json
+
+{
+  "query": "1.2版本这个装备怎么获得？",
+  "gameId": "demo_game",
+  "topK": 6,
+  "debug": true,
+  "filters": {
+    "doc_type": "guide",
+    "version": "1.2"
+  }
+}
+
+### Clear local RAG cache
+POST http://localhost:8080/api/rag/cache/clear
